@@ -48,7 +48,35 @@ sudo curl -fsSL https://github.com/TinsFox/github-hosts/releases/download/v0.0.1
    - URL：`https://github-hosts.tinsfox.com/hosts`
    - 自动更新：1 小时
 
-### 3. 手动更新
+### 3. Crontab 工具
+
+> [!IMPORTANT]
+> 该脚本直接覆写hosts文件，请确保无重要内容，且与其他hosts管理工具不兼容
+
+需要`crontab`和`wget`，理论适用于任何操作系统（Windows未测试，可能需修改`/etc/hosts`为`C:\Windows\System32\drivers\etc\hosts`）
+
+1. 确保`/etc/hosts`文件内容无需保留，脚本会覆写hosts文件。
+2. 用命令行执行
+```bash
+sudo crontab -e
+```
+3. 在打开的编辑器内输入
+```cron
+MAILTO = ""
+0 * * * * wget --output-document /etc/hosts https://github-hosts.tinsfox.com/hosts
+```
+其中`MAILTO = ""`使`crontab`不发送执行情况汇报邮件；若`wget`未添加进超级用户`PATH`，可用`curl`命令代替，参考手动更新。
+
+#### 优劣
+
+优点：
+- 全平台兼容
+- 后台运行，性能消耗低
+
+缺点：
+- 直接覆写`/etc/hosts`，无法直接保留原内容或与其他修改hosts文件的软件兼容。
+
+### 4. 手动更新
 
 1. 获取 hosts：访问 [https://github-hosts.tinsfox.com/hosts](https://github-hosts.tinsfox.com/hosts)
 2. 更新本地 hosts 文件：
