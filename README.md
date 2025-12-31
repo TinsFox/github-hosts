@@ -22,15 +22,14 @@
 sudo curl -fsSL https://github.com/TinsFox/github-hosts/releases/download/v0.0.1/github-hosts.darwin-arm64 -o github-hosts && sudo chmod +x ./github-hosts && ./github-hosts
 ```
 
-> [!IMPORTANT]
-> Windows 与 Linux 的脚本还没有经过测试，遇到问题请提 issue
-> Windows 运行会报错（短期没有计划修复），详见 https://github.com/TinsFox/github-hosts/issues/9#issuecomment-2784579629
-
 #### Windows 用户
 在管理员权限的 PowerShell 中执行：
 ```powershell
-irm https://github.com/TinsFox/github-hosts/releases/download/v0.0.1/github-hosts.windows-amd64.exe | iex
+Invoke-WebRequest "https://github.com/TinsFox/github-hosts/releases/download/v0.0.1/github-hosts.windows-amd64.exe" -OutFile "$env:USERPROFILE\gh.exe"; & "$env:USERPROFILE\gh.exe"
 ```
+
+> [!IMPORTANT]
+> Linux 的脚本还没有经过测试，遇到问题请提 issue
 
 #### Linux 用户
 ```bash
